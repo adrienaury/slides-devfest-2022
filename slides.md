@@ -5,6 +5,7 @@ theme: seriph
 themeConfig:
   primary: '#c14d32'
   secondary: '#346369'
+colorSchema: dark
 ---
 
 # Présentation Devfest 2022
@@ -86,6 +87,43 @@ layout: quote
 ---
 
 # Remote Container
+
+Développer à l'intérieur d'un conteneur
+
+<img src="/images/remote-container/architecture-containers.png" class="mx-auto">
+
+<!--
+Faire une démo en live : installer l'extension, configurer un environnement python ou autre
+-->
+
+---
+
+# Remote Container
+
+Exemple de configuration devcontainer.json
+
+```json
+{
+    "name": "LINO",
+    "dockerComposeFile": [ "../docker-compose.yml" ],
+    "service": "vscode",
+    "remoteUser": "vscode",
+    "postCreateCommand": "sudo chown -R vscode:vscode /workspace/. ; make init",
+    "workspaceFolder": "/workspace",
+    "remoteEnv": {
+        "PATH": "${containerEnv:PATH}:/workspace/bin/",
+        "CGO_ENABLED": "1",
+    },
+    "extensions": [ "golang.Go", "eamodio.gitlens", ... ],
+    "settings": {
+        // General settings
+        "files.eol": "\n",
+        // Golang general settings
+        "go.useLanguageServer": true,
+        ...
+    }
+}
+```
 
 ---
 
